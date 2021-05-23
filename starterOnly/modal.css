@@ -478,6 +478,9 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
+.helper-text{
+  font-size: small;
+}
 @media screen and (max-width: 800px) {
   .hero-section {
     display: block;
