@@ -15,7 +15,7 @@
   <body>
     <div class="topnav" id="myTopnav">
       <div class="header-logo">
-      <img alt="logo" src="Logo.png" width="auto" height="auto" />
+      <img alt="logo" src="Logo.png"  />
     </div>
     <div class="main-navbar">
       
@@ -29,7 +29,6 @@
       </a>
     </div>
     </div>
-  </div>
     <main>
       <div class="hero-section">
         <div class="hero-content">
@@ -56,6 +55,14 @@
       <div class="bground">
         <div class="content">
           <span class="close"></span>
+          <div class="success">
+            <p>Thank you for submitting your registration details</p>
+            <input
+                class="btn-submit"
+                id="closeSuccess"
+                type="submit"
+                value="Close"/>
+          </div>
           <div class="modal-body">
 <!-- FORM START -->
             <form
@@ -64,7 +71,7 @@
               novalidate >
               <div
                 class="formData">
-                <label for="first">Prénom</label><br>
+                <label for="fName">Prénom</label><br>
                 <input
                   class="text-control"
                   type="text"
@@ -77,13 +84,12 @@
               </div>
               <div
                 class="formData">
-                <label for="last">Nom</label><br>
+                <label for="lName">Nom</label><br>
                 <input
                   class="text-control"
                   type="text"
                   id="lName"
                   name="Nom"
-                  onfocusout="validatelName()"
                   placeholder="enter last name, at least 2 chars"
                   onfocusout="validatelName()"/>
                   <span class="helper-text"></span>
@@ -198,7 +204,7 @@
                   id="checkbox1"
                   checked
                   onclick="validateConditions()"/>
-                <label class="checkbox2-label" for="checkbox1" required>
+                <label class="checkbox2-label" for="checkbox1">
                   <span class="checkbox-icon"></span>
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
@@ -217,7 +223,6 @@
               <input
                 class="btn-submit"
                 type="submit"
-                class="button"
                 value="C'est parti"/>
             </form>
           </div>

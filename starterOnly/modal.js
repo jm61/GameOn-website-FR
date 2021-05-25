@@ -20,11 +20,12 @@ const birthdate = document.querySelector('#birthdate')
 const quantity = document.querySelector('#quantity')
 const checkbox1 = document.querySelector('#checkbox1')
 const city = document.querySelectorAll('input[name="location"]')
+const success = document.querySelector('.success')
+const closeSuccess = document.querySelector('#closeSuccess')
 // Variables
 const red = "#F44336"
 const regex = /^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@{[a-zA-Z0-9_\-\.]+0\.([a-zA-Z]{2,5}){1,25})+)*$/;
 let radio = ""
-let test = 0
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -35,14 +36,22 @@ function launchModal() {
 }
 
 // close modal form
-close.addEventListener('click', ()=> {
+close.addEventListener('click', () => {
   content.style="z-index:0;"
   modalbg.style="z-index:1;"
+})
+
+closeSuccess.addEventListener('click', () => {
+  content.style="z-index:0;"
+  modalbg.style="z-index:1;"
+  success.style ="display:none;"
+  form.style="display:block;"
+})
 
 // launch subscription successful
 
 // Handle Form
-})
+
 form.addEventListener('submit', e => {
   e.preventDefault()
   cityCheck()
@@ -51,15 +60,12 @@ form.addEventListener('submit', e => {
     return false
   }
   if(validatefName() && validatelName() && validateEmail() && validateBirth() && validateQty() && validateConditions()) {
-    content.style="z-index:0;"
-    modalbg.style="z-index:1;"
-    alert('Subscription successful!')
+    success.style ="display:flex;"
+    form.style="display:none;"
   }
 })
 
-
-
-// Validation Input
+// Validation Input Fields
 function validatefName() {
   if(checkIfEmpty(fName)) return;
   if(!checkOnlyLetters(fName)) return;
@@ -102,7 +108,7 @@ function validateConditions(){
     return true
 }
 
-// Input Tests
+// Input empty check
 function checkIfEmpty(field){
   if(isEmpty(field.value.trim())) {
        setInvalid(field, `le champ ${field.name} ne peut pas être vide`)
@@ -112,6 +118,7 @@ function checkIfEmpty(field){
       return false
   }
 }
+// Input length check
 function check2Letters(field){
   if(field.value.length < 2){
     setInvalid(field, `le champ ${field.name} comprend au moins 2 caractères`)
@@ -121,17 +128,7 @@ function check2Letters(field){
     return true
   }
 }
-function isEmpty(value){
-  if(value === "") return true
-  return false
-}
-function setInvalid(field, message){
-  field.nextElementSibling.innerHTML = message
-  field.nextElementSibling.style.color = red
-}
-function setValid(field){
-  field.nextElementSibling.innerHTML = ''
-}
+// Input only letters checl
 function checkOnlyLetters(field) {
   if(/^[a-zA-Z ]+$/.test(field.value)) {
       setValid(field)
@@ -141,6 +138,7 @@ function checkOnlyLetters(field) {
       return false
   }
 }
+// Email input check
 function checkRegex(field, message){
   if(field.value.match(regex)) {
     setValid(field)
@@ -151,6 +149,20 @@ function checkRegex(field, message){
     return false
   }
 }
+// Utilities Valid/Invalid
+function setInvalid(field, message){
+  field.nextElementSibling.innerHTML = message
+  field.nextElementSibling.style.color = red
+}
+function setValid(field){
+  field.nextElementSibling.innerHTML = ''
+}
+// Input empty check
+function isEmpty(value){
+  if(value === "") return true
+  return false
+}
+
 
 
 
