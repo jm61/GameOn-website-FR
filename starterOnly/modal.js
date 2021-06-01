@@ -24,6 +24,7 @@ const success = document.querySelector('.success')
 const closeSuccess = document.querySelector('#closeSuccess')
 // Variables
 const red = "#F44336"
+// email check
 const regex = /^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@{[a-zA-Z0-9_\-\.]+0\.([a-zA-Z]{2,5}){1,25})+)*$/;
 let radio = ""
 
@@ -48,10 +49,7 @@ closeSuccess.addEventListener('click', () => {
   form.style="display:block;"
 })
 
-// launch subscription successful
-
 // Handle Form
-
 form.addEventListener('submit', e => {
   e.preventDefault()
   cityCheck()
