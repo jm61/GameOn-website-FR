@@ -55,11 +55,13 @@ form.addEventListener('submit', e => {
   console.log(radio)
 
   if(radio.length === 0) {
-    choixVille.textContent = 'Vous devez sélectionnez une ville'
-    choixVille.style.color = red
+      choixVille.textContent = 'Vous devez sélectionnez une ville'
+      choixVille.style.color = red
+      setTimeout( () => {
+        choixVille.textContent = ''
+      }, 2000)
     return false
-  } else {
-    choixVille.textContent = ''
+  } else { 
     radio = ''
   }
   if(validatefName() && validatelName() && validateEmail() && validateBirth() && validateQty() && validateConditions()) {
