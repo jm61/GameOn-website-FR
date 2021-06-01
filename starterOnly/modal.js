@@ -25,7 +25,7 @@ const closeSuccess = document.querySelector('#closeSuccess')
 const red = "#F44336"
 // email check RegEx
 const regex = /^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@{[a-zA-Z0-9_\-\.]+0\.([a-zA-Z]{2,5}){1,25})+)*$/;
-let radio = ""
+let radio = ''
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -52,12 +52,15 @@ closeSuccess.addEventListener('click', () => {
 form.addEventListener('submit', e => {
   e.preventDefault()
   cityCheck()
-  if(radio.length == 0) {
+  console.log(radio)
+
+  if(radio.length === 0) {
     choixVille.textContent = 'Vous devez sélectionnez une ville'
     choixVille.style.color = red
     return false
   } else {
     choixVille.textContent = ''
+    radio = ''
   }
   if(validatefName() && validatelName() && validateEmail() && validateBirth() && validateQty() && validateConditions()) {
     success.style ="display:flex;"
@@ -99,7 +102,7 @@ function validateQty(){
 }
 // Validation City checked
 function cityCheck(){
-    city.forEach((e) => {
+    city.forEach( e => {
       if(e.checked) {
         radio = e.value
         return true
