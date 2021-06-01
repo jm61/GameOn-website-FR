@@ -6,25 +6,24 @@ function editNav() {
     x.className = "topnav";
   }
 }
-// DOM Elements
+// DOM Elements Selection
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
-const formData = document.querySelectorAll(".formData");
 const form = document.querySelector("#form");
 const close = document.querySelector('.close')
 const content = document.querySelector('.content')
-const first = document.querySelector('#first')
-const last = document.querySelector('#last')
 const email = document.querySelector('#email')
 const birthdate = document.querySelector('#birthdate')
 const quantity = document.querySelector('#quantity')
 const checkbox1 = document.querySelector('#checkbox1')
+const conditions = document.querySelector('#conditions')
+const choixVille = document.querySelector('#choixVille')
 const city = document.querySelectorAll('input[name="location"]')
 const success = document.querySelector('.success')
 const closeSuccess = document.querySelector('#closeSuccess')
 // Variables
 const red = "#F44336"
-// email check
+// email check RegEx
 const regex = /^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@{[a-zA-Z0-9_\-\.]+0\.([a-zA-Z]{2,5}){1,25})+)*$/;
 let radio = ""
 
@@ -36,12 +35,12 @@ function launchModal() {
   modalbg.style.display = "block";
 }
 
-// close modal form
+// close modal form with X
 close.addEventListener('click', () => {
   content.style="z-index:0;"
   modalbg.style="z-index:1;"
 })
-
+// close modal after successful submit
 closeSuccess.addEventListener('click', () => {
   content.style="z-index:0;"
   modalbg.style="z-index:1;"
@@ -49,46 +48,56 @@ closeSuccess.addEventListener('click', () => {
   form.style="display:block;"
 })
 
-// Handle Form
+// Handle Form for submit
 form.addEventListener('submit', e => {
   e.preventDefault()
   cityCheck()
   if(radio.length == 0) {
-    alert('Vous devez sélectionnez une ville')
+    choixVille.textContent = 'Vous devez sélectionnez une ville'
+    choixVille.style.color = red
     return false
+  } else {
+    choixVille.textContent = ''
   }
   if(validatefName() && validatelName() && validateEmail() && validateBirth() && validateQty() && validateConditions()) {
     success.style ="display:flex;"
     form.style="display:none;"
+    form.reset()
   }
 })
 
-// Validation Input Fields
+// Validation First Name
 function validatefName() {
   if(checkIfEmpty(fName)) return;
   if(!checkOnlyLetters(fName)) return;
   if(!check2Letters(fName)) return;
   return true;
 }
+// Validation Last Name
 function validatelName() {
   if(checkIfEmpty(lName)) return
   if(!checkOnlyLetters(lName)) return
   if(!check2Letters(lName)) return;
   return true
 }
+// Validation Email
 function validateEmail(){
   if(checkIfEmpty(email)) return
   if(!checkRegex(email)) return
   return true
 }
+// Validation birthDate
 function validateBirth(){
   if(checkIfEmpty(birthdate)) return
   return true
 }
+// Validation Quantity
 function validateQty(){
   if(checkIfEmpty(quantity)) return
+  if(!positiveInteger(quantity)) return
   return true
 }
+// Validation City checked
 function cityCheck(){
     city.forEach((e) => {
       if(e.checked) {
@@ -99,12 +108,16 @@ function cityCheck(){
       }
   })
 }
+// Validation Conditions
 function validateConditions(){
   if(!checkbox1.checked){
-    alert('vous devez accepter les conditions d\'utilisation')
+    conditions.textContent ='Vous devez accepter les conditions d\'utilisation'
+    conditions.style.color = red
     return }
+    conditions.textContent = ''
     return true
 }
+// -------------------------------------------- //
 
 // Input empty check
 function checkIfEmpty(field){
@@ -114,6 +127,16 @@ function checkIfEmpty(field){
   } else {
       setValid(field)
       return false
+  }
+}
+// Positive Integer check
+function positiveInteger(field){
+  if(field.value < 0){
+    setInvalid(field, `le champ ${field.name} ne peut pas être négatif`)
+   return false
+  } else {
+    setValid(field)
+    return true
   }
 }
 // Input length check
@@ -126,9 +149,9 @@ function check2Letters(field){
     return true
   }
 }
-// Input only letters checl
+// Input only letters check
 function checkOnlyLetters(field) {
-  if(/^[a-zA-Z ]+$/.test(field.value)) {
+  if(/^[a-zA-Z\u00C0-\u00FF ]+$/.test(field.value)) {
       setValid(field)
       return true
   } else {
