@@ -26,6 +26,7 @@ const red = "#F44336"
 // email check RegEx
 const regex = /^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@{[a-zA-Z0-9_\-\.]+0\.([a-zA-Z]{2,5}){1,25})+)*$/;
 let radio = ''
+let fields = []
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -67,6 +68,10 @@ form.addEventListener('submit', e => {
   if(validatefName() && validatelName() && validateEmail() && validateBirth() && validateQty() && validateConditions()) {
     success.style ="display:flex;"
     form.style="display:none;"
+    // Dump fields form
+    for(i=0; i<form.elements.length; i++) {
+      console.log(form.elements[i].value)
+    }
     form.reset()
   }
 })

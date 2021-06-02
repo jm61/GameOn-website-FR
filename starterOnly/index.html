@@ -77,7 +77,7 @@
                   type="text"
                   id="fName"
                   name="Prénom"
-                  placeholder="enter first name, at least 2 chars"
+                  placeholder="entrez au moins 2 caractères"
                   onfocusout="validatefName()"/>
                   <span class="helper-text"></span>
                   <br>
@@ -90,7 +90,7 @@
                   type="text"
                   id="lName"
                   name="Nom"
-                  placeholder="enter last name, at least 2 chars"
+                  placeholder="entrez au moins 2 caractères"
                   onfocusout="validatelName()"/>
                   <span class="helper-text"></span>
                   <br>
@@ -103,7 +103,7 @@
                   type="email"
                   id="email"
                   name="email"
-                  placeholder="enter a valid email"
+                  placeholder="entrez un email valide"
                   onfocusout="validateEmail()"/>
                   <span class="helper-text"></span>
                   <br>
@@ -124,7 +124,8 @@
                 class="formData">
                 <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
                 <input type="number" class="text-control" id="quantity" name="Tournoi" min="0" max="99"
-                onfocusout="validateQty()"/>
+                onfocusout="validateQty()"
+                placeholder="un entier >= 0"/>
                 <span class="helper-text"></span>
               </div>
               <p class="text-label">Quelles villes ?</p>
