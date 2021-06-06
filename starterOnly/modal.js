@@ -13,11 +13,6 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const form = document.querySelector("#form");
 const close = document.querySelector('.close')
 const content = document.querySelector('.content')
-const email = document.querySelector('#email')
-const birthdate = document.querySelector('#birthdate')
-const quantity = document.querySelector('#quantity')
-const checkbox1 = document.querySelector('#checkbox1')
-const conditions = document.querySelector('#conditions')
 const choixVille = document.querySelector('#choixVille')
 const city = document.querySelectorAll('input[name="location"]')
 const success = document.querySelector('.success')
