@@ -1,9 +1,10 @@
+// Toggle navbar responsive
 function editNav() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
+  const responsiveToggle = document.getElementById("myTopnav");
+  if (responsiveToggle.className === "topnav") {
+    responsiveToggle.className += " responsive";
   } else {
-    x.className = "topnav";
+    responsiveToggle.className = "topnav";
   }
 }
 // DOM Elements Selection
@@ -23,15 +24,15 @@ const success = document.querySelector('.success')
 const closeSuccess = document.querySelector('#closeSuccess')
 // Variables
 const red = "#F44336"
-// email check RegEx
-const regex = /^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@{[a-zA-Z0-9_\-\.]+0\.([a-zA-Z]{2,5}){1,25})+)*$/;
+// check RegEx
+const regexEmail = /^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@{[a-zA-Z0-9_\-\.]+0\.([a-zA-Z]{2,5}){1,25})+)*$/;
+const regexChars = /^[a-zA-Z\u00C0-\u00FF ]+$/
 let radio = ''
 let fields = []
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // launch modal form
-
 function launchModal() {
   modalbg.style.display = "block";
 }
@@ -49,45 +50,18 @@ closeSuccess.addEventListener('click', () => {
   form.style="display:block;"
 })
 
-// Handle Form for submit
-form.addEventListener('submit', e => {
-  e.preventDefault()
-  cityCheck()
-  console.log(radio)
-
-  if(radio.length === 0) {
-      choixVille.textContent = 'Vous devez sélectionnez une ville'
-      choixVille.style.color = red
-      setTimeout( () => {
-        choixVille.textContent = ''
-      }, 2000)
-    return false
-  } else { 
-    radio = ''
-  }
-  if(validatefName() && validatelName() && validateEmail() && validateBirth() && validateQty() && validateConditions()) {
-    success.style ="display:flex;"
-    form.style="display:none;"
-    // Dump fields form
-    for(i=0; i<form.elements.length; i++) {
-      console.log(form.elements[i].value)
-    }
-    form.reset()
-  }
-})
-
 // Validation First Name
-function validatefName() {
-  if(checkIfEmpty(fName)) return;
-  if(!checkOnlyLetters(fName)) return;
-  if(!check2Letters(fName)) return;
+function validateFirstName() {
+  if(checkIfEmpty(firstName)) return;
+  if(!checkOnlyLetters(firstName)) return;
+  if(!check2Letters(firstName)) return;
   return true;
 }
 // Validation Last Name
-function validatelName() {
-  if(checkIfEmpty(lName)) return
-  if(!checkOnlyLetters(lName)) return
-  if(!check2Letters(lName)) return;
+function validateLastName() {
+  if(checkIfEmpty(lastName)) return
+  if(!checkOnlyLetters(lastName)) return
+  if(!check2Letters(lastName)) return;
   return true
 }
 // Validation Email
@@ -161,7 +135,7 @@ function check2Letters(field){
 }
 // Input only letters check
 function checkOnlyLetters(field) {
-  if(/^[a-zA-Z\u00C0-\u00FF ]+$/.test(field.value)) {
+  if(regexChars.test(field.value)) {
       setValid(field)
       return true
   } else {
@@ -171,7 +145,7 @@ function checkOnlyLetters(field) {
 }
 // Email input check
 function checkRegex(field, message){
-  if(field.value.match(regex)) {
+  if(field.value.match(regexEmail)) {
     setValid(field)
     return true
   } else {
@@ -180,6 +154,12 @@ function checkRegex(field, message){
     return false
   }
 }
+// Input empty check
+function isEmpty(value){
+  if(value === "") return true
+  return false
+}
+
 // Utilities Valid/Invalid
 function setInvalid(field, message){
   field.nextElementSibling.innerHTML = message
@@ -188,11 +168,35 @@ function setInvalid(field, message){
 function setValid(field){
   field.nextElementSibling.innerHTML = ''
 }
-// Input empty check
-function isEmpty(value){
-  if(value === "") return true
-  return false
-}
+
+// Handle Form for submit
+form.addEventListener('submit', e => {
+  e.preventDefault()
+  cityCheck()
+  console.log(radio)
+
+  if(radio.length === 0) {
+      choixVille.textContent = 'Vous devez sélectionnez une ville'
+      choixVille.style.color = red
+      setTimeout( () => {
+        choixVille.textContent = ''
+      }, 2000)
+    return false
+  } else { 
+    radio = ''
+  }
+  if(validateFirstName() && validateLastName() && validateEmail() && validateBirth() && validateQty() && validateConditions()) {
+    success.style ="display:flex;"
+    form.style="display:none;"
+    // Dump fields form
+    for(i=0; i<form.elements.length; i++) {
+      console.log(form.elements[i].value)
+    }
+    form.reset()
+  }
+})
+
+
 
 
 
