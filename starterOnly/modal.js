@@ -68,6 +68,7 @@ function validateEmail(){
 // Validation birthDate
 function validateBirth(){
   if(checkIfEmpty(birthdate)) return
+  if(!checkFutureDate(birthdate)) return
   return true
 }
 // Validation Quantity
@@ -146,6 +147,18 @@ function checkRegex(field, message){
   } else {
     message = `le champ ${field.name} doit être un email valide`
     setInvalid(field, message)
+    return false
+  }
+}
+// Check Birthdate in the future
+function checkFutureDate(field) {
+  const dateNow = new Date().getTime()
+  const datePicked = new Date(field.value).getTime()
+  if(datePicked < dateNow) {
+    setValid(field)
+    return true
+  } else {
+    setInvalid(field, `le champ birthdate ne peut pas être dans le futur`)
     return false
   }
 }
